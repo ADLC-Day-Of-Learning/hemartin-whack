@@ -30,4 +30,4 @@ create_issues:
             - fullsend-ai/agents
 inference:
     project: it-gcp-adlc-learning-day
-    wif_provider: projects/334483260561/locations/global/workloadIdentityPools/fullsend-inference/providers/general
+    wif_provider: projects/334483260561/locations/global/workloadIdentityPools/fullsend-inference/providers/github-oidc
