@@ -136,40 +136,89 @@ export default class BootScene extends Phaser.Scene {
 
   createMoleTexture() {
     const g = this.make.graphics({ add: false });
-
-    // Body.
-    g.fillStyle(0x8a5a33);
-    g.fillEllipse(MOLE_WIDTH / 2, MOLE_HEIGHT / 2, 88, MOLE_HEIGHT - 6);
-
-    // Belly and snout.
-    g.fillStyle(0xc89f6d);
-    g.fillEllipse(MOLE_WIDTH / 2, MOLE_HEIGHT * 0.72, 52, 62);
-
-    // Eyes.
-    g.fillStyle(0x1d1206);
-    g.fillCircle(MOLE_WIDTH / 2 - 16, 44, 7);
-    g.fillCircle(MOLE_WIDTH / 2 + 16, 44, 7);
-    g.fillStyle(0xffffff);
-    g.fillCircle(MOLE_WIDTH / 2 - 14, 42, 2);
-    g.fillCircle(MOLE_WIDTH / 2 + 18, 42, 2);
-
-    // Nose.
-    g.fillStyle(0xe58e8e);
-    g.fillEllipse(MOLE_WIDTH / 2, 62, 16, 12);
-
-    // Whiskers.
-    g.lineStyle(2, 0x1d1206, 0.5);
-    g.lineBetween(MOLE_WIDTH / 2 - 8, 62, 10, 52);
-    g.lineBetween(MOLE_WIDTH / 2 - 8, 66, 10, 70);
-    g.lineBetween(MOLE_WIDTH / 2 + 8, 62, MOLE_WIDTH - 10, 52);
-    g.lineBetween(MOLE_WIDTH / 2 + 8, 66, MOLE_WIDTH - 10, 70);
-
-    // Paws.
-    g.fillStyle(0xc89f6d);
-    g.fillEllipse(16, 30, 22, 18);
-    g.fillEllipse(MOLE_WIDTH - 16, 30, 22, 18);
-
+    this.drawFedora(g);
     g.generateTexture('mole', MOLE_WIDTH, MOLE_HEIGHT);
     g.destroy();
+  }
+
+  drawFedora(g) {
+    const cx = MOLE_WIDTH / 2;
+
+    // Crown - Red Hat Red (0xee0000).
+    // The crown tapers gently from the hatband up to the creased top.
+    g.fillStyle(0xee0000);
+    g.beginPath();
+    g.moveTo(cx - 33, 72);
+    g.lineTo(cx - 29, 44);
+    g.lineTo(cx - 24, 28);
+    g.lineTo(cx - 14, 24);
+    g.lineTo(cx, 26);
+    g.lineTo(cx + 14, 24);
+    g.lineTo(cx + 24, 28);
+    g.lineTo(cx + 29, 44);
+    g.lineTo(cx + 33, 72);
+    g.closePath();
+    g.fillPath();
+
+    // Smooth dome across the top of the crown.
+    g.fillEllipse(cx, 26, 48, 10);
+
+    // Fedora center crease fold (subtle indentation shadow).
+    g.fillStyle(0xb30000);
+    g.beginPath();
+    g.moveTo(cx - 5, 25);
+    g.lineTo(cx + 5, 25);
+    g.lineTo(cx + 2, 45);
+    g.lineTo(cx, 48);
+    g.lineTo(cx - 2, 45);
+    g.closePath();
+    g.fillPath();
+
+    // Side pinch accent lines.
+    g.lineStyle(2, 0xc00000, 0.6);
+    g.lineBetween(cx - 21, 32, cx - 18, 46);
+    g.lineBetween(cx + 21, 32, cx + 18, 46);
+
+    // Soft highlight across the top crown rim.
+    g.fillStyle(0xff4d4d);
+    g.fillEllipse(cx - 14, 24, 18, 3);
+    g.fillEllipse(cx + 14, 24, 14, 3);
+
+    // Hatband (black ribbon around the base of the crown).
+    g.fillStyle(0x141414);
+    g.beginPath();
+    g.moveTo(cx - 32, 60);
+    g.lineTo(cx + 32, 60);
+    g.lineTo(cx + 34, 73);
+    g.lineTo(cx - 34, 73);
+    g.closePath();
+    g.fillPath();
+
+    // Ribbon specular highlight.
+    g.fillStyle(0x383838);
+    g.fillRect(cx - 32, 65, 64, 2);
+
+    // Ribbon bow / knot fold on the side.
+    g.fillStyle(0x242424);
+    g.fillRoundedRect(cx - 26, 58, 8, 17, 2);
+    g.fillStyle(0x444444);
+    g.fillRect(cx - 25, 59, 2, 15);
+    g.fillStyle(0x141414);
+    g.fillCircle(cx - 22, 66, 2);
+
+    // Fedora Brim.
+    // Under-brim shadow for depth against the hole opening.
+    g.fillStyle(0x750000);
+    g.fillEllipse(cx, 83, 92, 18);
+
+    // Main upper brim in Red Hat Red.
+    g.fillStyle(0xee0000);
+    g.fillEllipse(cx, 80, 92, 18);
+
+    // Upper brim highlight curve.
+    g.fillStyle(0xff3333);
+    g.fillEllipse(cx, 78, 82, 6);
+    g.fillStyle(0xee0000);
+    g.fillEllipse(cx, 79, 84, 8);
   }
 }
